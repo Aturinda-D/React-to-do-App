@@ -237,7 +237,7 @@ header {
 .task-container {
   width: 90%;
   max-height: 230px;
-  overflow-y: hidden;
+  overflow: hidden;
   display: grid;
   justify-content: center;
   align-content: flex-start;
@@ -301,7 +301,14 @@ header {
 }
 .expansionbutton {
   grid-area: expansion;
-  background-color: #7777f8;
+  & button {
+    height: 100%;
+    padding: 0 25px;
+    border: 2px solid #f2b258;
+    font: 700 14px "Inter", sans-serif;
+    color: #4b332f;
+    background-color: transparent;
+  }
 }
 .analytics {
   grid-area: analytics;
