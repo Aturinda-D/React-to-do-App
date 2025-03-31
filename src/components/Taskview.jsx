@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Task from "./Task";
 import Filter from "./Filter";
 import Input from "./Input";
 import { FaPlus, FaSearch } from "react-icons/fa";
 
-const Taskview = () => {
+const Taskview = ({ ...props }) => {
   const date = new Date();
+  const [taskTitle, setTaskTitle] = useState("");
+  const [taskBody, setTaskBody] = useState("");
   const [tasks, setTasks] = useState([
     {
       id: Math.round(Math.random() * 1000),
@@ -15,8 +17,6 @@ const Taskview = () => {
       date: `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`,
     },
   ]);
-  const [taskTitle, setTaskTitle] = useState("");
-  const [taskBody, setTaskBody] = useState("");
   const handleOnChangeTaskTitle = (e) => setTaskTitle(e.target.value);
   const handleOnChangeTaskBody = (e) => setTaskBody(e.target.value);
   const addTask = (e) => {
@@ -31,7 +31,6 @@ const Taskview = () => {
         date: `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`,
       },
     ]);
-    console.log(tasks);
     setTaskTitle("");
     setTaskBody("");
   };
@@ -75,7 +74,7 @@ const Taskview = () => {
           </button>
         </form>
       </div>
-      <div className="task-container">
+      <div ref={props.taskContainerRef} className="task-container">
         {tasks?.map((task, index) => (
           <Task
             key={index}

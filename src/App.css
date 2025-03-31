@@ -305,6 +305,9 @@ header {
     font: 700 14px "Inter", sans-serif;
     color: #4b332f;
     background-color: transparent;
+    &:hover {
+      background-color: #f0d1a855;
+    }
   }
 }
 .analytics {

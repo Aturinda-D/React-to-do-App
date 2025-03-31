@@ -1,9 +1,9 @@
 import React from "react";
 
-const Expansionbutton = ({ ...props }) => {
+const Expansionbutton = ({ text, ...props }) => {
   return (
     <div className="expansionbutton">
-      <button {...props}>Load more</button>
+      <button {...props}>{text}</button>
     </div>
   );
 };

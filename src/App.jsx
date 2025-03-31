@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import Heading from "./components/Heading";
@@ -8,22 +8,36 @@ import Expansionbutton from "./components/Expansionbutton";
 import Analytics from "./components/Analytics";
 import Footer from "./components/Footer";
 
-/**
- * id => random number
- * title => string
- * body => string
- * status => completed|pending|cancelled
- * date => date-month-year
- */
 function App() {
+  const taskContainer = useRef();
+  const expansionButton = useRef();
+  const handleExpansionClick = () => {
+    switch (expansionButton.current.innerHTML) {
+      case "Show less":
+        expansionButton.current.innerHTML = "Load more";
+        taskContainer.current.style.maxHeight = "230px";
+        break;
+      default:
+        expansionButton.current.innerHTML = "Show less";
+        taskContainer.current.style.maxHeight = "480px";
+        taskContainer.current.style.overflowY = "auto";
+        taskContainer.current.style.scrollbarWidth = "none";
+        break;
+    }
+    console.log(taskContainer.current.style.maxHeight);
+  };
   return (
     <>
       <Header />
       <Heading />
       <div className="container">
         <DateView />
-        <Taskview />
-        <Expansionbutton />
+        <Taskview taskContainerRef={taskContainer} />
+        <Expansionbutton
+          ref={expansionButton}
+          text="Load more"
+          onClick={handleExpansionClick}
+        />
         <Analytics />
       </div>
       <Footer />
