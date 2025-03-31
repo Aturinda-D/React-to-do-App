@@ -24,7 +24,6 @@ function App() {
         taskContainer.current.style.scrollbarWidth = "none";
         break;
     }
-    console.log(taskContainer.current.style.maxHeight);
   };
   return (
     <>

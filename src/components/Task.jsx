@@ -1,9 +1,9 @@
 import React from "react";
-import { FaEdit, FaRegCheckCircle } from "react-icons/fa";
+import { FaEdit, FaCheckCircle, FaRegCheckCircle } from "react-icons/fa";
 import TaskAction from "./TaskAction";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-const Task = ({ ...props }) => {
+const Task = ({ onClickCheck, ...props }) => {
   return (
     <div className="task">
       <div className="task-info">
@@ -14,7 +14,16 @@ const Task = ({ ...props }) => {
         </h5>
       </div>
       <div className="actions">
-        <TaskAction icon={<FaRegCheckCircle />} />
+        <TaskAction
+          icon={
+            props.status === "pending" ? (
+              <FaRegCheckCircle />
+            ) : (
+              <FaCheckCircle />
+            )
+          }
+          onClick={onClickCheck}
+        />
         <TaskAction icon={<FaEdit />} />
         <TaskAction icon={<RiDeleteBin6Line />} />
       </div>
