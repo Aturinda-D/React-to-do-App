@@ -8,6 +8,13 @@ import Expansionbutton from "./components/Expansionbutton";
 import Analytics from "./components/Analytics";
 import Footer from "./components/Footer";
 
+/**
+ * id => random number
+ * title => string
+ * body => string
+ * status => completed|pending|cancelled
+ * date => date-month-year
+ */
 function App() {
   return (
     <>

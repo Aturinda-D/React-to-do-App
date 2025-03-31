@@ -156,6 +156,9 @@ header {
   width: min(25%, 80px);
   border: none;
   background-color: #5c9967;
+  &:hover {
+    opacity: 70%;
+  }
 }
 .filter-search {
   height: 25px;

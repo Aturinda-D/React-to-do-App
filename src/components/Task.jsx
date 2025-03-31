@@ -3,14 +3,14 @@ import { FaEdit, FaRegCheckCircle } from "react-icons/fa";
 import TaskAction from "./TaskAction";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-const Task = () => {
+const Task = ({ ...props }) => {
   return (
     <div className="task">
       <div className="task-info">
-        <h4>learn javascript</h4>
-        <p>Master the language powering the modern web.</p>
+        <h4>{props.title}</h4>
+        <p>{props.body}</p>
         <h5>
-          Start date: <span>07-07-2023</span>
+          Start date: <span>{props.date}</span>
         </h5>
       </div>
       <div className="actions">
