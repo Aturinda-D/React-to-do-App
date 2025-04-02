@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Task from "./Task";
 import Filter from "./Filter";
 import Input from "./Input";
@@ -17,19 +17,24 @@ const Taskview = ({ ...props }) => {
       date: `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`,
     },
   ]);
+
   const handleOnChangeTaskTitle = (e) => setTaskTitle(e.target.value);
   const handleOnChangeTaskBody = (e) => setTaskBody(e.target.value);
+
   const handleMarkCompleted = (id) => {
-    setTasks(() =>
-      tasks.map((task, index) => {
+    setTasks((prevState) =>
+      prevState.map((task) => {
         if (task.id === id) {
-          task.status = "completed";
-          tasks.splice(index, 1, task);
-          return task;
+          return {
+            ...task,
+            status: task.status === "pending" ? "completed" : "pending",
+          };
         }
+        return task;
       })
     );
   };
+
   const addTask = (e) => {
     e.preventDefault();
     setTasks((prevState) => [
@@ -45,6 +50,7 @@ const Taskview = ({ ...props }) => {
     setTaskTitle("");
     setTaskBody("");
   };
+
   return (
     <div className="taskview">
       <form className="inputs" onSubmit={addTask}>
@@ -88,12 +94,12 @@ const Taskview = ({ ...props }) => {
       <div ref={props.taskContainerRef} className="task-container">
         {tasks?.map((task) => (
           <Task
-            key={task.id}
-            title={task.title}
-            body={task.body}
-            status={task.status}
-            date={task.date}
-            onClickCheck={() => handleMarkCompleted(task.id)}
+            key={task?.id}
+            title={task?.title}
+            body={task?.body}
+            status={task?.status}
+            date={task?.date}
+            onClickCheck={() => handleMarkCompleted(task?.id)}
           />
         ))}
       </div>
