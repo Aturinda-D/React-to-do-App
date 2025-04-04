@@ -6,6 +6,8 @@ import { FaPlus, FaSearch } from "react-icons/fa";
 
 const Taskview = ({ ...props }) => {
   const date = new Date();
+  const [isEdit, setIsEdit] = useState(false);
+  const [editId, setEditId] = useState(null);
   const [taskTitle, setTaskTitle] = useState("");
   const [taskBody, setTaskBody] = useState("");
   const [tasks, setTasks] = useState([
@@ -34,6 +36,30 @@ const Taskview = ({ ...props }) => {
       })
     );
   };
+  const handleEdit = (id) => {
+    tasks?.map((task) => {
+      if (task.id === id) {
+        setTaskTitle(task?.title);
+        setTaskBody(task?.body);
+        setIsEdit(true);
+        setEditId(id);
+      }
+    });
+  };
+  const editTask = (e) => {
+    e.preventDefault();
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === editId) {
+          return { ...task, title: taskTitle, body: taskBody };
+        }
+        return task;
+      })
+    );
+    setIsEdit(false);
+    setTaskTitle("");
+    setTaskBody("");
+  };
 
   const addTask = (e) => {
     e.preventDefault();
@@ -53,7 +79,7 @@ const Taskview = ({ ...props }) => {
 
   return (
     <div className="taskview">
-      <form className="inputs" onSubmit={addTask}>
+      <form className="inputs" onSubmit={isEdit ? editTask : addTask}>
         <Input
           type="text"
           name="task-title"
@@ -100,6 +126,7 @@ const Taskview = ({ ...props }) => {
             status={task?.status}
             date={task?.date}
             onClickCheck={() => handleMarkCompleted(task?.id)}
+            onClickEdit={() => handleEdit(task?.id)}
           />
         ))}
       </div>
