@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Task from "./Task";
 import Filter from "./Filter";
 import Input from "./Input";
 import { FaPlus, FaSearch } from "react-icons/fa";
 
-const Taskview = ({ ...props }) => {
+const Taskview = ({
+  createdTasks,
+  setCreatedTasks,
+  setPendingTasks,
+  setCompletedTasks,
+  ...props
+}) => {
   const date = new Date();
   const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
@@ -51,7 +57,12 @@ const Taskview = ({ ...props }) => {
     setTasks(
       tasks.map((task) => {
         if (task.id === editId) {
-          return { ...task, title: taskTitle, body: taskBody };
+          return {
+            ...task,
+            title: taskTitle,
+            body: taskBody,
+            status: "pending",
+          };
         }
         return task;
       })
@@ -75,7 +86,14 @@ const Taskview = ({ ...props }) => {
     ]);
     setTaskTitle("");
     setTaskBody("");
+    setCreatedTasks(createdTasks + 1);
   };
+  useEffect(() => {
+    setPendingTasks(tasks.filter((task) => task.status === "pending").length);
+    setCompletedTasks(
+      tasks.filter((task) => task.status === "completed").length
+    );
+  }, [tasks]);
 
   return (
     <div className="taskview">

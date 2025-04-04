@@ -9,6 +9,9 @@ import Analytics from "./components/Analytics";
 import Footer from "./components/Footer";
 
 function App() {
+  const [completedTasks, setCompletedTasks] = useState(0);
+  const [pendingTasks, setPendingTasks] = useState(1);
+  const [createdTasks, setCreatedTasks] = useState(1);
   const taskContainer = useRef();
   const expansionButton = useRef();
   const handleExpansionClick = () => {
@@ -16,6 +19,7 @@ function App() {
       case "Show less":
         expansionButton.current.innerHTML = "Load more";
         taskContainer.current.style.maxHeight = "230px";
+        taskContainer.current.style.overflowY = "hidden";
         break;
       default:
         expansionButton.current.innerHTML = "Show less";
@@ -31,13 +35,23 @@ function App() {
       <Heading />
       <div className="container">
         <DateView />
-        <Taskview taskContainerRef={taskContainer} />
+        <Taskview
+          taskContainerRef={taskContainer}
+          createdTasks={createdTasks}
+          setCreatedTasks={setCreatedTasks}
+          setCompletedTasks={setCompletedTasks}
+          setPendingTasks={setPendingTasks}
+        />
         <Expansionbutton
           ref={expansionButton}
           text="Load more"
           onClick={handleExpansionClick}
         />
-        <Analytics />
+        <Analytics
+          pending={pendingTasks}
+          completed={completedTasks}
+          created={createdTasks}
+        />
       </div>
       <Footer />
     </>
