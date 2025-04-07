@@ -3,7 +3,7 @@ import { FaEdit, FaCheckCircle, FaRegCheckCircle } from "react-icons/fa";
 import TaskAction from "./TaskAction";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-const Task = ({ onClickCheck, onClickEdit, ...props }) => {
+const Task = ({ onClickCheck, onClickEdit, onClickDelete, ...props }) => {
   return (
     <div className="task">
       <div className="task-info">
@@ -25,7 +25,7 @@ const Task = ({ onClickCheck, onClickEdit, ...props }) => {
           onClick={onClickCheck}
         />
         <TaskAction icon={<FaEdit />} onClick={onClickEdit} />
-        <TaskAction icon={<RiDeleteBin6Line />} />
+        <TaskAction icon={<RiDeleteBin6Line />} onClick={onClickDelete} />
       </div>
     </div>
   );

@@ -72,6 +72,10 @@ const Taskview = ({
     setTaskBody("");
   };
 
+  const handleDelete = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
   const addTask = (e) => {
     e.preventDefault();
     setTasks((prevState) => [
@@ -88,6 +92,7 @@ const Taskview = ({
     setTaskBody("");
     setCreatedTasks(createdTasks + 1);
   };
+
   useEffect(() => {
     setPendingTasks(tasks.filter((task) => task.status === "pending").length);
     setCompletedTasks(
@@ -145,6 +150,7 @@ const Taskview = ({
             date={task?.date}
             onClickCheck={() => handleMarkCompleted(task?.id)}
             onClickEdit={() => handleEdit(task?.id)}
+            onClickDelete={() => handleDelete(task?.id)}
           />
         ))}
       </div>
