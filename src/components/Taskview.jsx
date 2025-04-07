@@ -12,6 +12,7 @@ const Taskview = ({
   ...props
 }) => {
   const date = new Date();
+  const [searchValue, setSearchValue] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
   const [taskTitle, setTaskTitle] = useState("");
@@ -25,9 +26,23 @@ const Taskview = ({
       date: `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`,
     },
   ]);
+  const [filteredTasks, setFilteredTasks] = useState(tasks);
 
   const handleOnChangeTaskTitle = (e) => setTaskTitle(e.target.value);
   const handleOnChangeTaskBody = (e) => setTaskBody(e.target.value);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchValue === "") {
+      setFilteredTasks(tasks);
+    } else {
+      setFilteredTasks(
+        tasks.filter((task) =>
+          task.title.toLowerCase().includes(searchValue.toLowerCase())
+        )
+      );
+    }
+  };
 
   const handleMarkCompleted = (id) => {
     setTasks((prevState) =>
@@ -42,6 +57,7 @@ const Taskview = ({
       })
     );
   };
+
   const handleEdit = (id) => {
     tasks?.map((task) => {
       if (task.id === id) {
@@ -98,6 +114,7 @@ const Taskview = ({
     setCompletedTasks(
       tasks.filter((task) => task.status === "completed").length
     );
+    setFilteredTasks(tasks);
   }, [tasks]);
 
   return (
@@ -128,12 +145,16 @@ const Taskview = ({
           <Filter label="By category" />
           <Filter label="By priority" />
         </div>
-        <form>
+        <form onSubmit={handleSearch}>
           <Input
             type="search"
             name="search-bar"
+            value={searchValue}
             placeholder="Search by name"
             id="search"
+            onChange={(e) => {
+              setSearchValue(e.target.value);
+            }}
           />
           <button type="submit" id="search-button">
             <FaSearch />
@@ -141,7 +162,7 @@ const Taskview = ({
         </form>
       </div>
       <div ref={props.taskContainerRef} className="task-container">
-        {tasks?.map((task) => (
+        {filteredTasks?.map((task) => (
           <Task
             key={task?.id}
             title={task?.title}
