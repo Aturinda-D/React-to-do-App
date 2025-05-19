@@ -27,7 +27,7 @@ import taskReducer from "./slice";
 const store = configureStore({
   reducer: {
     // define our reducers
-    tasks: taskReducer,
+    taskStore: taskReducer,
   },
 });
 

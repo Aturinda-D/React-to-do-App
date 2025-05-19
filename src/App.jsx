@@ -3,7 +3,8 @@ import "./App.css";
 import Header from "./components/Header";
 import Heading from "./components/Heading";
 import DateView from "./components/DateView";
-import Taskview from "./components/Taskview";
+// import Taskview from "./components/Taskview";
+import TaskViewWithRedux from "./components/TaskViewWithRedux";
 import Expansionbutton from "./components/Expansionbutton";
 import Analytics from "./components/Analytics";
 import Footer from "./components/Footer";
@@ -36,13 +37,20 @@ function App() {
       <Heading />
       <div className="container">
         <DateView />
-        <Taskview
+        <TaskViewWithRedux
           taskContainerRef={taskContainer}
           createdTasks={createdTasks}
           setCreatedTasks={setCreatedTasks}
           setCompletedTasks={setCompletedTasks}
           setPendingTasks={setPendingTasks}
         />
+        {/* <Taskview
+          taskContainerRef={taskContainer}
+          createdTasks={createdTasks}
+          setCreatedTasks={setCreatedTasks}
+          setCompletedTasks={setCompletedTasks}
+          setPendingTasks={setPendingTasks}
+        /> */}
         <Expansionbutton
           ref={expansionButton}
           text="Load more"
